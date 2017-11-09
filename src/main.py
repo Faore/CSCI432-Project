@@ -1,5 +1,5 @@
 from graphsystem.graph_import import *
 
-print("Hello World")
-g = graph_import()
-g.import_graph_from_file("../data/graph_adjacency.txt")
+adjacency_list = graph_import.adjacency_list_from_file("../data/graph_adjacency.txt")
+adjacency_matrix = graph_import.adjacency_matrix_from_file("../data/graph_adjacency.txt")
+
