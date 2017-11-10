@@ -12,15 +12,14 @@ class graph_import:
             adjacency_list[int(s[0])] = []
             for i in p:
                 adjacency_list[int(s[0])].append(int(i))
-        print(adjacency_list)
         return adjacency_list
 
     @staticmethod
     def adjacency_matrix_from_file(path):
-        adjacency_matrix = (np.zeros((48, 48), dtype=int))
+        adjacency_matrix = (np.zeros((48, 48), dtype=bool))
         i = 0
         np.set_printoptions(threshold=np.inf)
-        with open('adjacency_list.txt', 'r') as f:
+        with open(path, 'r') as f:
 
             for i in range(48):
 
@@ -30,6 +29,7 @@ class graph_import:
                 # print(line)
                 j = 0
                 for vertex in range(len(line)):
-                    adjacency_matrix[i, int(line[j]) - 1] = 1
+                    adjacency_matrix[i, int(line[j]) - 1] = True
+                    adjacency_matrix[int(line[j]) - 1, i] = True
                     j = j + 1
         return adjacency_matrix
