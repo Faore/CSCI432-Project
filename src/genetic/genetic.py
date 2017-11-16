@@ -1,5 +1,5 @@
 from genetic.chromosome import Chromosome
-from random import shuffle, randrange
+from random import shuffle, randrange, uniform
 
 
 class Genetic:
@@ -30,7 +30,7 @@ class Genetic:
 
     def check_for_solution_from_population(self):
         for c in self.current_population:
-            if c.calculate_fitness(self.adjacency_matrix):
+            if c.calculate_fitness(self.adjacency_matrix) == 0:
                 return c
         return None
 
@@ -57,7 +57,7 @@ class Genetic:
             first = old_population.pop()
             second = old_population.pop()
 
-            if first.calculate_fitness() > second.calculate_fitness():
+            if first.calculate_fitness(self.adjacency_matrix) > second.calculate_fitness(self.adjacency_matrix):
                 self.current_population.append(second)
             else:
                 self.current_population.append(first)
@@ -73,5 +73,6 @@ class Genetic:
 
         children = [Chromosome(first_half1 + second_half2, self.k), Chromosome(second_half1 + first_half2, self.k)]
         for child in children:
-            if randrange(0, int(self.mutation_probability * 100)) == 0:
+            if uniform(0.0, 1.0) <= self.mutation_probability:
                 child.mutate(self.adjacency_matrix)
+        return children
