@@ -30,7 +30,7 @@ class Genetic:
 
     def check_for_solution_from_population(self):
         for c in self.current_population:
-            if c.calculate_fitness(self.adjacency_matrix):
+            if c.calculate_fitness(self.adjacency_matrix) == 0:
                 return c
         return None
 
@@ -57,7 +57,7 @@ class Genetic:
             first = old_population.pop()
             second = old_population.pop()
 
-            if first.calculate_fitness() > second.calculate_fitness():
+            if first.calculate_fitness(self.adjacency_matrix) > second.calculate_fitness(self.adjacency_matrix):
                 self.current_population.append(second)
             else:
                 self.current_population.append(first)

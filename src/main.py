@@ -14,7 +14,7 @@ adjacency_matrix = graph_import.adjacency_matrix_from_file(adjacency_file)
 
 color_list = ['#CB4B16', '#DC322F', '#6C71C4', '#859900']
 
-alg = Genetic(adjacency_matrix, 4, 100, 500, 0.1)
+alg = Genetic(adjacency_matrix, 4, 100, 1000, 0.1)
 result = alg.run()
 print(result)
 
