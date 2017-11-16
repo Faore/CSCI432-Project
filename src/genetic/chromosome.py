@@ -2,7 +2,6 @@ from random import randrange, choice
 
 
 class Chromosome:
-
     def __init__(self, colorings, k):
         self.colorings = colorings
         self.k = k
@@ -15,7 +14,7 @@ class Chromosome:
         return Chromosome(colorings, k)
 
     def calculate_fitness(self, adjacency_matrix):
-        conflicts = 0;
+        conflicts = 0
         for node, color in enumerate(self.colorings):
             if not self.is_colorable(node, color, adjacency_matrix):
                 conflicts += 1

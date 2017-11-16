@@ -3,11 +3,21 @@
 <head>  
   <title>JavaScript SVG Animation</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge"/> <!-- Remove this line in production. -->
+  <style type="text/css">
+    body {
+      background: #002b36;
+    }
+    svg {
+      display: block;
+      height: 100%;
+      margin: auto;
+    }
+  </style>
 </head>
 
 <body>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="959" height="593">
+<svg xmlns="http://www.w3.org/2000/svg" width="959" viewBox="0 0 959 593">
 <title>Blank US states map</title>
 <g id="outlines">
   <path id="AL" fill="#D3D3D3" d="M628.5,466.4 l0.6,0.2 1.3,-2.7 1.5,-4.4 2.3,0.6 3.1,6 v1 l-2.7,1.9 2.7,0.3 5.2,-2.5 -0.3,-7.6 -2.5,-1.8 -2,-2 0.4,-4 10.5,-1.5 25.7,-2.9 6.7,-0.6 5.6,0.1 -0.5,-2.2 -1.5,-0.8 -0.9,-1.1 1,-2.6 -0.4,-5.2 -1.6,-4.5 0.8,-5.1 1.7,-4.8 -0.2,-1.7 -1.8,-0.7 -0.5,-3.6 -2.7,-3.4 -2,-6.5 -1.4,-6.7 -1.8,-5 -3.8,-16 -3.5,-7.9 -0.8,-5.6 0.1,-2.2 -9,0.8 -23.4,2.2 -12.2,0.8 -0.2,6.4 0.2,16.7 -0.7,31 -0.3,14.1 2.8,18.8 1.6,14.7z"/>
@@ -77,10 +87,10 @@
     var mt = document.getElementById("MT");
 	var wy = document.getElementById("WY");
 	var t = setInterval(myTimer, 1000);
-	var colors = {"MT": ["#980043", "#F1EEF6", "#66C2A4"], "WY": ["#66C2A4", "#980043", "#F1EEF6"] }
+	var colors = {"WA": ["#6C71C4"], "OR": ["#859900"], "CA": ["#859900"], "ID": ["#859900"], "NV": ["#6C71C4"], "AZ": ["#DC322F"], "MT": ["#DC322F"], "WY": ["#6C71C4"], "UT": ["#CB4B16"], "NM": ["#859900"], "CO": ["#859900"], "ND": ["#6C71C4"], "SD": ["#6C71C4"], "NE": ["#DC322F"], "KS": ["#859900"], "OK": ["#CB4B16"], "TX": ["#DC322F"], "MN": ["#DC322F"], "IA": ["#6C71C4"], "MO": ["#859900"], "AR": ["#6C71C4"], "LA": ["#859900"], "WI": ["#859900"], "IL": ["#6C71C4"], "KY": ["#859900"], "TN": ["#6C71C4"], "MS": ["#DC322F"], "MI": ["#859900"], "IN": ["#6C71C4"], "AL": ["#CB4B16"], "OH": ["#859900"], "WV": ["#859900"], "VA": ["#6C71C4"], "NC": ["#6C71C4"], "SC": ["#CB4B16"], "GA": ["#DC322F"], "FL": ["#DC322F"], "PA": ["#CB4B16"], "MD": ["#859900"], "DE": ["#CB4B16"], "NJ": ["#859900"], "NY": ["#CB4B16"], "VT": ["#DC322F"], "NH": ["#DC322F"], "MA": ["#6C71C4"], "CT": ["#CB4B16"], "RI": ["#DC322F"], "ME": ["#DC322F"]};
 	//var mt_colors = ["#980043", "#F1EEF6", "#66C2A4"]
 	//var wy_colors = ["#66C2A4", "#980043", "#F1EEF6"] 
-	var i = 0
+	var i = 0;
 	
 	function myTimer() {
 		for (var key in colors) {
@@ -90,8 +100,8 @@
 		}
 		//mt.setAttribute("fill", mt_colors[i])
 		//wy.setAttribute("fill", wy_colors[i])
-		i++
-		if (i > 2) {
+		i++;
+		if (i >= colors['WA'].length) {
 			i = 0
 		}
 	}

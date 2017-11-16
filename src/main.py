@@ -1,9 +1,32 @@
 from graphsystem.graph_import import *
 from genetic.genetic import Genetic
-from genetic.chromosome import Chromosome
+import json
+
+num_to_states = {1: 'WA', 2:'OR', 3: 'CA', 4:'ID', 5: 'NV', 6:'AZ', 7: 'MT', 8: 'WY', 9: 'UT', 10: 'NM', 11: 'CO', 12: 'ND',
+                 13:'SD', 14:'NE', 15:'KS', 16: 'OK', 17:'TX', 18:'MN', 19:'IA',20:'MO', 21:'AR', 22: 'LA', 23: 'WI',24:'IL',25:'KY',
+                 26:'TN', 27:'MS', 28:'MI', 29:'IN', 30:'AL', 31:'OH',32:'WV', 33:'VA', 34:'NC',35:'SC',36:'GA',37:'FL',38:'PA',39:'MD',
+                 40:'DE',41:'NJ',42:'NY',43:'VT',44:'NH',45:'MA',46:'CT',47:'RI',48:'ME'
+                 }
 
 adjacency_file = "../data/adjacency_list.txt"
 adjacency_list = graph_import.adjacency_list_from_file(adjacency_file)
 adjacency_matrix = graph_import.adjacency_matrix_from_file(adjacency_file)
 
-print(Chromosome.generate_chromosome(10, 4).colorings)
+color_list = ['#CB4B16', '#DC322F', '#6C71C4', '#859900']
+
+alg = Genetic(adjacency_matrix, 4, 100, 500, 0.1)
+result = alg.run()
+print(result)
+
+hex_colorings = []
+
+for n in result:
+    hex_colorings.append(color_list[n])
+print(hex_colorings)
+dictionary_colorings = {}
+
+for i, col in enumerate(hex_colorings):
+    dictionary_colorings[num_to_states[i+1]] = [col]
+
+json_data = json.dumps(dictionary_colorings)
+print(json_data)

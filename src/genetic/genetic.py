@@ -1,8 +1,8 @@
 from genetic.chromosome import Chromosome
 from random import shuffle, randrange
 
-class Genetic:
 
+class Genetic:
     def __init__(self, adjacency_matrix, k, population_size, limit, mutation_probability):
         self.adjacency_matrix = adjacency_matrix
         self.k = k
@@ -11,6 +11,7 @@ class Genetic:
         self.current_population = []
         self.mutation_probability = mutation_probability
         self.iterations = 0
+        self.population_archive = []
 
     def run(self):
         self.generate_initial_population()
@@ -20,7 +21,7 @@ class Genetic:
             self.breed_population()
             self.iterations += 1
 
-        return self.check_for_solution_from_population().colorings
+        return self.check_for_solution_from_population().colorings or False
 
     def generate_initial_population(self):
         self.current_population = []
@@ -29,7 +30,7 @@ class Genetic:
 
     def check_for_solution_from_population(self):
         for c in self.current_population:
-            if c.calulate_fitness() == 0:
+            if c.calculate_fitness(self.adjacency_matrix):
                 return c
         return None
 
@@ -72,5 +73,5 @@ class Genetic:
 
         children = [Chromosome(first_half1 + second_half2, self.k), Chromosome(second_half1 + first_half2, self.k)]
         for child in children:
-            if randrange(0, int(self.mutation_probability*100)) == 0:
+            if randrange(0, int(self.mutation_probability * 100)) == 0:
                 child.mutate(self.adjacency_matrix)
