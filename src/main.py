@@ -13,11 +13,11 @@ adjacency_file = "../data/adjacency_list.txt"
 adjacency_list = graph_import.adjacency_list_from_file(adjacency_file)
 adjacency_matrix = graph_import.adjacency_matrix_from_file(adjacency_file)
 
-color_list = ['#CB4B16', '#DC322F', '#6C71C4', '#859900']
+color_list = ['#CB4B16', '#DC322F', '#6C71C4', '#859900', '#2869B6', '#42B628', '#28B69A', '#B428B6', '#B62844', '#B2B628']
 
-alg = Genetic(adjacency_matrix, 4, 100, 1000, 0.1)
+alg = Genetic(adjacency_matrix, 4, 100, 100, 0.7)
 result = alg.run()
-#print(result)
+print(result)
 
 hex_colorings = []
 

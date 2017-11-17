@@ -1,5 +1,6 @@
 from random import randrange, choice
 import numpy as np
+import random
 
 
 class Chromosome:
@@ -34,4 +35,7 @@ class Chromosome:
     def mutate(self, adjacency_matrix):
         for node, color in enumerate(self.colorings):
             if not self.is_colorable(node, color, adjacency_matrix):
-                self.colorings[node] = list(range(0, self.k).remove(color))
+                color_list = list(range(0, self.k))
+                color_list.remove(color)
+                new_color = random.choice(color_list)
+                self.colorings[node] = new_color
