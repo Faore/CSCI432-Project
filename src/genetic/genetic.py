@@ -21,7 +21,7 @@ class Genetic:
             self.tournament_selection()
             self.breed_population()
             self.iterations += 1
-            print("Current Pop Size: " + str(len(self.current_population)))
+            # print("Current Pop Size: " + str(len(self.current_population)))
 
         if self.check_for_solution_from_population() is None:
             print("No solution")
@@ -49,9 +49,6 @@ class Genetic:
         old_population = self.current_population
         self.current_population = []
 
-        print("BREEDING")
-        print("Old Pop")
-        print(len(old_population))
         shuffle(old_population)
 
         # If the population happens to be odd for some weird reason, using a check for greater than one prevents us from
@@ -62,9 +59,6 @@ class Genetic:
             children = self.crossover_and_mutation(first, second)
             self.current_population.append(children[0])
             self.current_population.append(children[1])
-
-        print("New pop")
-        print(len(self.current_population))
 
     def tournament_selection(self):
         old_population = self.current_population

@@ -13,28 +13,32 @@ adjacency_file = "../data/adjacency_list.txt"
 adjacency_list = graph_import.adjacency_list_from_file(adjacency_file)
 adjacency_matrix = graph_import.adjacency_matrix_from_file(adjacency_file)
 
-color_list = ['#CB4B16', '#DC322F', '#6C71C4', '#859900', '#2869B6', '#42B628', '#28B69A', '#B428B6', '#B62844', '#B2B628']
+color_list = ['#28B69A', '#B428B6', '#B62844', '#B2B628', '#CB4B16', '#DC322F', '#6C71C4', '#859900', '#2869B6', '#42B628']
 
-alg = Genetic(adjacency_matrix, 4, 100, 100, 0.7)
+alg = Genetic(adjacency_matrix, 4, 100, 100, 0.3)
 result = alg.run()
 print(result)
 
 hex_colorings = []
 
-for n in result:
-    hex_colorings.append(color_list[n])
-#print(hex_colorings)
-dictionary_colorings = {}
+if result is not None:
+    for n in result:
+        hex_colorings.append(color_list[n])
+    #print(hex_colorings)
+    dictionary_colorings = {}
 
-for i, col in enumerate(hex_colorings):
-    dictionary_colorings[num_to_states[i+1]] = [col]
 
-json_data = json.dumps(dictionary_colorings)
+    for i, col in enumerate(hex_colorings):
+        dictionary_colorings[num_to_states[i+1]] = [col]
 
-file = open("states.html", "r")
-file_str = file.read()
-file.close()
+    json_data = json.dumps(dictionary_colorings)
 
-file_str = re.sub("\/\/START:COLORS\n.*\n*\t*\/\/END:COLORS", "//START:COLORS\nvar colors = " + json_data + ";\n//END:COLORS", file_str)
+    file = open("states.html", "r")
+    file_str = file.read()
+    file.close()
 
-open("states.html", "w").write(file_str)
+    file_str = re.sub("\/\/START:COLORS\n.*\n*\t*\/\/END:COLORS", "//START:COLORS\nvar colors = " + json_data + ";\n//END:COLORS", file_str)
+
+    open("states.html", "w").write(file_str)
+else:
+    print("Solution not found!")
