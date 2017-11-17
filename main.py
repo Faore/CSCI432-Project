@@ -2,6 +2,7 @@ from graphsystem.graph_import import *
 from genetic.genetic import Genetic
 import json
 import re
+import os
 
 num_to_states = {1: 'WA', 2:'OR', 3: 'CA', 4:'ID', 5: 'NV', 6:'AZ', 7: 'MT', 8: 'WY', 9: 'UT', 10: 'NM', 11: 'CO', 12: 'ND',
                  13:'SD', 14:'NE', 15:'KS', 16: 'OK', 17:'TX', 18:'MN', 19:'IA',20:'MO', 21:'AR', 22: 'LA', 23: 'WI',24:'IL',25:'KY',
@@ -9,13 +10,14 @@ num_to_states = {1: 'WA', 2:'OR', 3: 'CA', 4:'ID', 5: 'NV', 6:'AZ', 7: 'MT', 8: 
                  40:'DE',41:'NJ',42:'NY',43:'VT',44:'NH',45:'MA',46:'CT',47:'RI',48:'ME'
                  }
 
-adjacency_file = "../data/adjacency_list.txt"
+adjacency_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'adjacency_list.txt')
+#adjacency_file = "../data/adjacency_list.txt"
 adjacency_list = graph_import.adjacency_list_from_file(adjacency_file)
 adjacency_matrix = graph_import.adjacency_matrix_from_file(adjacency_file)
 
 color_list = ['#28B69A', '#B428B6', '#B62844', '#B2B628', '#CB4B16', '#DC322F', '#6C71C4', '#859900', '#2869B6', '#42B628']
 
-alg = Genetic(adjacency_matrix, 4, 100, 100, 0.3)
+alg = Genetic(adjacency_matrix, 4, 500, 100, 0.3)
 result = alg.run()
 print(result)
 
@@ -26,7 +28,6 @@ if result is not None:
         hex_colorings.append(color_list[n])
     #print(hex_colorings)
     dictionary_colorings = {}
-
 
     for i, col in enumerate(hex_colorings):
         dictionary_colorings[num_to_states[i+1]] = [col]
