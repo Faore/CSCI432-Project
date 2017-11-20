@@ -1,6 +1,7 @@
-from genetic.chromosome import Chromosome
-from random import shuffle, randrange
 import random
+from random import shuffle, randrange
+
+from src.genetic.chromosome import Chromosome
 
 
 class Genetic:
@@ -13,25 +14,34 @@ class Genetic:
         self.mutation_probability = mutation_probability
         self.iterations = 0
         self.population_archive = []
+        self.best_solution = None
 
     def run(self):
         self.generate_initial_population()
-
+        results = [] #store best solution at each generation
         while self.check_for_solution_from_population() is None and self.iterations < self.limit:
             self.tournament_selection()
             self.breed_population()
             self.iterations += 1
             # print("Current Pop Size: " + str(len(self.current_population)))
-
+            self.update_best_solution()
+            print("Best solution's fitness = " + str(self.best_solution.calculate_fitness(self.adjacency_matrix)))
+            results.append(self.best_solution.colorings)
         if self.check_for_solution_from_population() is None:
             print("No solution")
         else:
-            return self.check_for_solution_from_population().colorings
+            #return self.check_for_solution_from_population().colorings
+            return results
 
     def generate_initial_population(self):
         self.current_population = []
         for i in range(self.population_size):
             self.current_population.append(Chromosome.generate_chromosome(len(self.adjacency_matrix), self.k))
+
+    def update_best_solution(self):
+        for solution in range(len(self.current_population)):
+            if solution == 0 or self.current_population[solution].calculate_fitness(self.adjacency_matrix) < self.best_solution.calculate_fitness(self.adjacency_matrix):
+                self.best_solution = self.current_population[solution]
 
     def check_for_solution_from_population(self):
         # print("\n Next Generation \n")
