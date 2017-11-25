@@ -15,23 +15,26 @@ class Genetic:
         self.iterations = 0
         self.population_archive = []
         self.best_solution = None
+        self.soln_history = []
 
     def run(self):
         self.generate_initial_population()
-        results = [] #store best solution at each generation
+        results = [] # store best solution at each generation
         while self.check_for_solution_from_population() is None and self.iterations < self.limit:
             self.tournament_selection()
             self.breed_population()
             self.iterations += 1
             # print("Current Pop Size: " + str(len(self.current_population)))
             self.update_best_solution()
-            print("Best solution's fitness = " + str(self.best_solution.calculate_fitness(self.adjacency_matrix)))
+            best_fitness = self.best_solution.calculate_fitness(self.adjacency_matrix)
+            self.soln_history.append(best_fitness)
+            print("Best solution's fitness = " + str(best_fitness))
             results.append(self.best_solution.colorings)
         if self.check_for_solution_from_population() is None:
             print("No solution")
         else:
-            #return self.check_for_solution_from_population().colorings
-            return results
+            # return self.check_for_solution_from_population().colorings
+            return results, self.soln_history
 
     def generate_initial_population(self):
         self.current_population = []

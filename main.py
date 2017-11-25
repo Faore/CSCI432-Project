@@ -30,12 +30,13 @@ adjacency_matrix = graph_import.adjacency_matrix_from_file(adjacency_file)
 color_list = ['#1039DF', '#DF101D', '#E5EEF3', '#39A034']
 
 # Run the GA, (adjacency, number of colors, population size, max generations, mutation probability)
-alg = Genetic(adjacency_matrix, 4, 500, 100, 0.3)
+alg = Genetic(adjacency_matrix, 4, 100, 100, 0.2)
 result = alg.run()
+print(result[1])
 
 # Create Visualization
 if result is not None:
-    soln_history = np.array(result)
+    soln_history = np.array(result[0])
 
     dictionary_colorings = {}
     for key, state in num_to_states.items():
@@ -51,12 +52,14 @@ if result is not None:
         dictionary_colorings[state] = hex_colorings
 
     json_data = json.dumps(dictionary_colorings)
+    conflict_history = json.dumps(result[1])
 
     file = open("states.html", "r")
     file_str = file.read()
     file.close()
 
-    file_str = re.sub("\/\/START:COLORS\n.*\n*\t*\/\/END:COLORS", "//START:COLORS\nvar colors = " + json_data + ";\n//END:COLORS", file_str)
+    file_str = re.sub("\/\/START:COLORS\n.*\n.*\n*\t*\/\/END:COLORS", "//START:COLORS\nvar colors = " + json_data + "\n"
+                      + "var conflicts = " + conflict_history + ";\n//END:COLORS", file_str)
 
     open("states.html", "w").write(file_str)
 else:
